@@ -1,8 +1,4 @@
 from typing import List, Union
-from random import randint, choice
-from time import time
-from sys import getsizeof
-import tracemalloc
 
 def quicksort(array: List[Union[int, float]]) -> List[Union[int, float]]:
     """алгоритм быстрой сортировки "на месте" python"""
@@ -41,25 +37,3 @@ def quicksort(array: List[Union[int, float]]) -> List[Union[int, float]]:
         cursor -= 1
     #вызываем функцию для подмассивов
     return quicksort(array[:cursor + 1]) + quicksort(array[cursor + 1:])
-
-def qsort(array: List[Union[int, float]]) -> List[Union[int, float]]:
-    if array.__len__() <= 1:
-        return array
-    q = choice(array)
-    left = [i for i in array if i < q]
-    right = [i for i in array if i > q]
-    center = [i for i in array if i == q]
-    return qsort(left) + center + qsort(right)
-
-
-#array = [1, 2, 75, 88, 67]
-#array = [5, 16, 13, 8, 6, 1, 2]
-array = [randint(-1000, 1000) for i in range(100000)]
-s = time()
-tracemalloc.start()
-b = qsort(array)
-print(tracemalloc.get_traced_memory())
-l = time() - s
-
-
-print(getsizeof(array))
